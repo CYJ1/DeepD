@@ -9,16 +9,20 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 // final ImagePicker _picker = ImagePicker();
+PickedFile? myimage;
 
 class Model extends ModelMVC {
-  PickedFile? myimage;
   Future modelGetImageFromGallery() async {
     print("사진가져옵니다");
     PickedFile image =
         await ImagePicker.platform.pickImage(source: ImageSource.gallery);
-    setState(() {
-      myimage = image;
-    });
+    myimage = image;
+    print("myimage path: " + myimage!.path);
+  }
+
+  String? sendImagePath() {
+    print("model: myimage path send");
+    return myimage?.path;
   }
 
   static void modelSendImageToServer() {
