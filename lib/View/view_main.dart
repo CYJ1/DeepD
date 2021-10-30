@@ -10,7 +10,9 @@ import 'package:image_picker/image_picker.dart';
 // import 'package:image_picker_web/image_picker_web.dart';
 import 'dart:io';
 
-PickedFile? _image = Model().myimage;
+// PickedFile? _image = Model().myimage;
+PickedFile? _image;
+String? imagepath;
 
 class View extends StatefulWidget {
   const View({Key? key}) : super(key: key);
@@ -39,9 +41,11 @@ class ViewState extends StateMVC<View> {
                 height: 200.0,
                 // color: Colors.grey[100],
                 child: Center(
-                  child: _image == null
+                  child: Controller.sendpath() == null
                       ? Text('No image selected')
-                      : Image.file(File(_image!.path)),
+                      : Image.file(File(Controller.sendpath()!)),
+                  //이상하게 뜬다!!!!!!!!!!!!!!!!
+                  //당연함... sendpath()를 계속 호출해서 path를 받아올 순 없음.
                 ),
               ),
             ),
@@ -51,7 +55,10 @@ class ViewState extends StateMVC<View> {
             TextButton.icon(
               onPressed: () {
                 print("사진 가져오기 클릭");
-                Controller.getImageFromGallery();
+                setState(() {
+                  Controller.getImageFromGallery();
+                });
+                // Controller.getImageFromGallery();
               },
               icon: Icon(Icons.camera_alt),
               label: Text('사진 가져오기'),
@@ -82,6 +89,24 @@ class ViewState extends StateMVC<View> {
                 primary: Colors.redAccent,
                 onSurface: Colors.grey[200],
                 minimumSize: Size(200, 80),
+                elevation: 3.0,
+                backgroundColor: Colors.red[50],
+                shape: StadiumBorder(),
+                textStyle: TextStyle(fontSize: 20.0),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                imagepath = Controller.sendpath();
+                imagepath == null
+                    ? print("view.image is null")
+                    : print("view.image path:" + imagepath!);
+              },
+              child: Text('test'),
+              style: TextButton.styleFrom(
+                primary: Colors.redAccent,
+                onSurface: Colors.grey[200],
+                minimumSize: Size(50, 50),
                 elevation: 3.0,
                 backgroundColor: Colors.red[50],
                 shape: StadiumBorder(),
