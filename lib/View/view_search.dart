@@ -27,11 +27,16 @@ class _SearchResultPageState extends StateMVC<SearchResultPage> {
                 children: [
                   Center(
                     child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 200.0,
-                      // color: Colors.grey[100],
-                      child: Center(child: Text('검색결과창이 뜹니다 ...')),
-                    ),
+                        width: MediaQuery.of(context).size.width,
+                        height: 200.0,
+                        // color: Colors.grey[100],
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text('검색결과창이 뜹니다 ...'),
+                              )
+                            ])),
                   ),
                   Divider(
                     height: 60.0,
