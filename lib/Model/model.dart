@@ -14,7 +14,7 @@ class Model extends ModelMVC {
   PickedFile? myimage;
   Future modelGetImageFromGallery() async {
     print("사진가져옵니다");
-    var image =
+    PickedFile image =
         await ImagePicker.platform.pickImage(source: ImageSource.gallery);
     setState(() {
       myimage = image;
@@ -23,5 +23,9 @@ class Model extends ModelMVC {
 
   static void modelSendImageToServer() {
     print("send image");
+  }
+
+  static void modelSearchSendImageToServer() {
+    print("검색 요청 보냄");
   }
 }

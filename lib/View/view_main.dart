@@ -7,7 +7,7 @@ import 'package:deep_d/View/view_search.dart';
 import 'package:deep_d/Model/model.dart';
 import 'package:deep_d/View/view_result.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
+// import 'package:image_picker_web/image_picker_web.dart';
 import 'dart:io';
 
 PickedFile? _image = Model().myimage;

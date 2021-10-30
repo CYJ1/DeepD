@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:deep_d/Controller/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:deep_d/View/view_search.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -43,6 +44,7 @@ class _ResultPageState extends StateMVC<ResultPage> {
                   TextButton(
                     onPressed: () {
                       print("사진 검색 클릭");
+                      Controller.searchSendImageToServer();
                       //사진 검색으로 넘기기
                       Navigator.push(
                           context,
