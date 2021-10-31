@@ -26,6 +26,7 @@ class ViewState extends StateMVC<View> {
 
   @override
   Widget build(BuildContext context) {
+    imagepath = Controller.sendpath();
     return Scaffold(
       appBar: AppBar(
         title: Text('Deep_D'),
@@ -39,11 +40,10 @@ class ViewState extends StateMVC<View> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 200.0,
-                // color: Colors.grey[100],
                 child: Center(
-                  child: Controller.sendpath() == null
+                  child: imagepath == null
                       ? Text('No image selected')
-                      : Image.file(File(Controller.sendpath()!)),
+                      : Image.file(File(imagepath!)),
                   //이상하게 뜬다!!!!!!!!!!!!!!!!
                   //당연함... sendpath()를 계속 호출해서 path를 받아올 순 없음.
                 ),
