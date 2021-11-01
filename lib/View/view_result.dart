@@ -18,13 +18,24 @@ class ResultPage extends StatefulWidget {
 class _ResultPageState extends StateMVC<ResultPage> {
   @override
   var selectedImage = Controller().selectedImage;
-  bool isLoading = true;
-
+  bool isLoading = false;
+  bool result = false;
+  String resultString = "";
   //사진 판별 중엔 isLoading true, 검색 다 되면 isLoading false로 바꿔주어 화면 보이게 하기.
+
+  void printResult() {
+    if (result) {
+      resultString = "진짜 사진입니다.";
+    } else {
+      resultString = "가짜 사진입니다.";
+    }
+  }
+  //result (true, false) 받아와서 출력할 준비~
 
   Widget build(BuildContext context) {
     print("결과창입니다");
-    print("selectedImage in result: " + selectedImage.path);
+    printResult();
+    // print("selectedImage in result: " + selectedImage.path);
     return Scaffold(
         appBar: AppBar(
             title: Text('YHHY'),
@@ -36,7 +47,7 @@ class _ResultPageState extends StateMVC<ResultPage> {
                       context, MaterialPageRoute(builder: (context) => View()));
                 },
                 icon: const Icon(Icons.home))
-            //홈버튼 클릭 시 이전꺼 다 사라지게 (뒤로가기 했을때 이전검색 안나오게)
+            //홈버튼 클릭 시 이전꺼 다 사라지게 (이전페이지가 나오는게 아니라 홈이 나오도록)
             ),
         body: isLoading
             ? Center(child: CircularProgressIndicator())
@@ -52,10 +63,14 @@ class _ResultPageState extends StateMVC<ResultPage> {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Center(
-                                    child: Text('검색결과창이 뜹니다 ...'),
+                                  Image.file(File(selectedImage.path)),
+                                  SizedBox(
+                                    height: 5,
                                   ),
-                                  Image.file(File(selectedImage.path))
+                                  Text(
+                                    resultString,
+                                    style: TextStyle(fontSize: 20.0),
+                                  ),
                                 ])),
                       ),
                       Divider(
@@ -64,15 +79,19 @@ class _ResultPageState extends StateMVC<ResultPage> {
                         thickness: 1.0,
                       ),
                       TextButton(
-                        onPressed: () {
-                          print("사진 검색 클릭");
-                          Controller.searchSendImageToServer();
-                          //사진 검색으로 넘기기
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SearchResultPage()));
-                        },
+                        onPressed: !result
+                            ? () {
+                                print("사진 검색 클릭");
+                                Controller.searchSendImageToServer();
+                                //사진 검색으로 넘기기
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SearchResultPage()));
+                              }
+                            : null,
+                        //진짜 사진이면 사진 검색 비활성화.. 더 예쁘게 할 수 없을까..?
                         child: Text('사진 검색'),
                         style: TextButton.styleFrom(
                           primary: Colors.redAccent,
