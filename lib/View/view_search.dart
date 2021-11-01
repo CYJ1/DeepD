@@ -35,7 +35,7 @@ class _SearchResultPageState extends StateMVC<SearchResultPage> {
                   Center(
                     child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 200.0,
+                        height: 300.0,
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
