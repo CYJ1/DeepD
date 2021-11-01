@@ -7,6 +7,7 @@ import 'package:deep_d/View/view_search.dart';
 import 'package:deep_d/Model/model.dart';
 import 'package:deep_d/View/view_result.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:image_picker_web/image_picker_web.dart';
 import 'dart:io';
 
@@ -78,6 +79,10 @@ class ViewState extends StateMVC<View> {
                 print("사진 업로드 클릭");
                 if (_image?.path == null) {
                   print("사진을 선택해 주세요");
+                  Fluttertoast.showToast(
+                      msg: "사진을 먼저 선택해 주세요.",
+                      toastLength: Toast.LENGTH_SHORT,
+                      fontSize: 15.0);
                   //넘어갈 수 없다는 Toast Message 출력
                 } else {
                   Controller.sendImageToServer();
