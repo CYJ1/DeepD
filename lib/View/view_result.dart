@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
 import 'package:deep_d/Controller/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:deep_d/View/view_search.dart';
@@ -14,8 +16,10 @@ class ResultPage extends StatefulWidget {
 
 class _ResultPageState extends StateMVC<ResultPage> {
   @override
+  var selectedImage = Controller().selectedImage;
   Widget build(BuildContext context) {
     print("결과창입니다");
+    print("selectedImage in result: " + selectedImage.path);
     return Scaffold(
         appBar: AppBar(
           title: Text('YHHY'),
@@ -30,11 +34,16 @@ class _ResultPageState extends StateMVC<ResultPage> {
                 children: [
                   Center(
                     child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 200.0,
-                      // color: Colors.grey[100],
-                      child: Center(child: Text('결과창이 뜹니다 ...')),
-                    ),
+                        width: MediaQuery.of(context).size.width,
+                        height: 200.0,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text('검색결과창이 뜹니다 ...'),
+                              ),
+                              Image.file(File(selectedImage.path))
+                            ])),
                   ),
                   Divider(
                     height: 60.0,
