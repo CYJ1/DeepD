@@ -8,22 +8,14 @@ import 'package:image_picker/image_picker.dart';
 // import 'package:image_picker_web/image_picker_web.dart';
 import 'dart:io';
 
-// final ImagePicker _picker = ImagePicker();
-PickedFile? myimage;
-
 class Model extends ModelMVC {
-  Future modelGetImageFromGallery() async {
-    print("사진가져옵니다");
-    PickedFile image =
-        await ImagePicker.platform.pickImage(source: ImageSource.gallery);
-    myimage = image;
-    print("myimage path: " + myimage!.path);
-  }
-
-  String? sendImagePath() {
-    print("model: myimage path send");
-    return myimage?.path;
-  }
+  // PickedFile? myimage;
+  // var image;
+  // Future modelGetImageFromGallery() async {
+  //   print("Model: GetImageFromGallery");
+  //   image = await ImagePicker.platform.pickImage(source: ImageSource.gallery);
+  //   myimage = image;
+  // }
 
   static void modelSendImageToServer() {
     print("send image");
