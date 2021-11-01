@@ -76,9 +76,14 @@ class ViewState extends StateMVC<View> {
             TextButton(
               onPressed: () {
                 print("사진 업로드 클릭");
-                Controller.sendImageToServer();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ResultPage()));
+                if (_image?.path == null) {
+                  print("사진을 선택해 주세요");
+                  //넘어갈 수 없다는 Toast Message 출력
+                } else {
+                  Controller.sendImageToServer();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ResultPage()));
+                }
               },
               child: Text('사진 업로드'),
               style: TextButton.styleFrom(
