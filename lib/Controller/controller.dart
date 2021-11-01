@@ -6,10 +6,10 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:deep_d/Model/model.dart';
 
 class Controller extends ControllerMVC {
-  static void getImageFromGallery() => Model().modelGetImageFromGallery();
+  // static void getImageFromGallery() => Model().modelGetImageFromGallery();
   static void sendImageToServer() => Model.modelSendImageToServer();
   static void searchSendImageToServer() => Model.modelSearchSendImageToServer();
-  static sendpath() => Model().sendImagePath();
+  var selectedImage = image;
 }
 
 
