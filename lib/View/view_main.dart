@@ -7,8 +7,8 @@ import 'package:deep_d/Controller/controller.dart';
 import 'package:deep_d/View/view_result.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-// import 'package:image_picker_web/image_picker_web.dart';
-import 'dart:io';
+import 'dart:io' as io;
+import 'dart:html' as html;
 
 PickedFile? _image;
 String? imagepath;
@@ -105,7 +105,15 @@ class ViewState extends StateMVC<View> {
                       child: Center(
                         child: _image == null
                             ? Text('No image selected')
-                            : Image.file(File(_image!.path)),
+                            : kisWeb
+                                ? Image.network(
+                                    _image!.path,
+                                    height: 200,
+                                  )
+                                : Image.file(
+                                    io.File(_image!.path),
+                                    height: 200,
+                                  ),
                       ),
                     ),
                   ),
@@ -115,7 +123,8 @@ class ViewState extends StateMVC<View> {
                   TextButton.icon(
                     onPressed: () {
                       print("사진 가져오기 클릭");
-                      kisWeb ? print("웹에서 작동 어떻게 할까요") : getImage();
+                      // kisWeb ? print("웹") : getImage();
+                      _getImage();
                     },
                     icon: Icon(Icons.camera_alt),
                     label: Text('사진 가져오기'),
@@ -143,13 +152,7 @@ class ViewState extends StateMVC<View> {
                             msg: "사진을 먼저 선택해 주세요.",
                             toastLength: Toast.LENGTH_SHORT,
                             fontSize: 15.0);
-                        //넘어갈 수 없다는 Toast Message 출력
                       } else {
-                        // Controller.sendImageToServer();
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => ResultPage()));
                         _showDialog();
                       }
                     },
@@ -169,10 +172,19 @@ class ViewState extends StateMVC<View> {
     );
   }
 
-  Future getImage() async {
+  Future _getImage() async {
     image = await ImagePicker.platform.pickImage(source: ImageSource.gallery);
     setState(() {
-      _image = image;
+      if (PickedFile != null) {
+        if (kisWeb) {
+          print("web: 이미지 가져옵니다");
+          Image.network(image.path);
+          print("web: 이미지 가져오기 성공");
+        } else {
+          print("App: 이미지 가져옵니다");
+        }
+        _image = image;
+      }
     });
   }
 }

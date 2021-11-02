@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
-
+import 'package:deep_d/main.dart';
 import 'package:deep_d/Controller/controller.dart';
 import 'package:deep_d/View/view_main.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +22,7 @@ class _ResultPageState extends StateMVC<ResultPage> {
   bool result = false;
   String resultString = "";
   //사진 판별 중엔 isLoading true, 검색 다 되면 isLoading false로 바꿔주어 화면 보이게 하기.
+  //만약 판별에 10초 이상 걸릴 경우 Alert -> Snackbar로 구현할 수 있을듯?
 
   void printResult() {
     if (result) {
@@ -65,7 +66,16 @@ class _ResultPageState extends StateMVC<ResultPage> {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Image.file(File(selectedImage.path)),
+                                  // Image.file(File(selectedImage.path)),
+                                  kisWeb
+                                      ? Image.network(
+                                          selectedImage!.path,
+                                          height: 200,
+                                        )
+                                      : Image.file(
+                                          File(selectedImage!.path),
+                                          height: 200,
+                                        ),
                                   SizedBox(
                                     height: 5,
                                   ),

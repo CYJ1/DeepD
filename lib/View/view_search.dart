@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
-// import 'dart:html';
+import 'package:deep_d/main.dart';
 import 'package:deep_d/Controller/controller.dart';
 import 'package:deep_d/View/view_main.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +57,16 @@ class _SearchResultPageState extends StateMVC<SearchResultPage> {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Image.file(File(selectedImage.path)),
+                                  // Image.file(File(selectedImage.path)),
+                                  kisWeb
+                                      ? Image.network(
+                                          selectedImage!.path,
+                                          height: 200,
+                                        )
+                                      : Image.file(
+                                          File(selectedImage!.path),
+                                          height: 200,
+                                        ),
                                   SizedBox(
                                     height: 5,
                                   ),
