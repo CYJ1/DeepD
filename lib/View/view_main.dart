@@ -8,7 +8,6 @@ import 'package:deep_d/View/view_result.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:io' as io;
-import 'dart:html' as html;
 
 PickedFile? _image;
 String? imagepath;
