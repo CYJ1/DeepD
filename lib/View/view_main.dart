@@ -4,8 +4,6 @@ import 'package:deep_d/main.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:deep_d/Controller/controller.dart';
-import 'package:deep_d/View/view_search.dart';
-import 'package:deep_d/Model/model.dart';
 import 'package:deep_d/View/view_result.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -57,6 +55,33 @@ class ViewState extends StateMVC<View> {
       },
     );
     return goBack;
+  }
+
+  void _showDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("딥페이크 탐지를 수행할까요?"),
+            content: Text("선택한 사진으로 딥페이크 탐지를 수행합니다."),
+            actions: <Widget>[
+              TextButton(
+                child: Text("아니오"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              TextButton(
+                child: Text("네"),
+                onPressed: () {
+                  Controller.sendImageToServer();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ResultPage()));
+                },
+              ),
+            ],
+          );
+        });
   }
 
   @override
@@ -120,11 +145,12 @@ class ViewState extends StateMVC<View> {
                             fontSize: 15.0);
                         //넘어갈 수 없다는 Toast Message 출력
                       } else {
-                        Controller.sendImageToServer();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ResultPage()));
+                        // Controller.sendImageToServer();
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => ResultPage()));
+                        _showDialog();
                       }
                     },
                     child: Text('사진 업로드'),
