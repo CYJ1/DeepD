@@ -43,12 +43,14 @@ class _ResultPageState extends StateMVC<ResultPage> {
             automaticallyImplyLeading: false,
             leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => View()));
+                  //https://blog.naver.com/chandong83/221948462147
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => View()),
+                      (route) => false);
                 },
-                icon: const Icon(Icons.home))
-            //홈버튼 클릭 시 이전꺼 다 사라지게 (이전페이지가 나오는게 아니라 홈이 나오도록)
-            ),
+                icon: const Icon(Icons.home))),
         body: isLoading
             ? Center(child: CircularProgressIndicator())
             : Padding(

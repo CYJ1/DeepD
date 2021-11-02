@@ -21,6 +21,7 @@ class _SearchResultPageState extends StateMVC<SearchResultPage> {
   String searchResult = '';
   int similarity = 100;
   //사진 검색 중엔 isLoading true, 검색 다 되면 isLoading false로 바꿔주어 화면 보이게 하기.
+  //사진 검색 후 유사도 받아오기.
 
   void printSearchResult() {
     searchResult = "사진의 유사도는 " + similarity.toString() + "% 입니다.";
@@ -37,12 +38,11 @@ class _SearchResultPageState extends StateMVC<SearchResultPage> {
             automaticallyImplyLeading: false,
             leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => View()));
+                  //https://blog.naver.com/chandong83/221948462147
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/', (route) => false);
                 },
-                icon: const Icon(Icons.home))
-            //홈버튼 클릭 시 이전꺼 다 사라지게 (뒤로가기 했을때 이전검색 안나오게)
-            ),
+                icon: const Icon(Icons.home))),
         body: isLoading
             ? Center(child: CircularProgressIndicator())
             : Padding(
