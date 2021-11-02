@@ -17,10 +17,19 @@ class SearchResultPage extends StatefulWidget {
 class _SearchResultPageState extends StateMVC<SearchResultPage> {
   @override
   var selectedImage = Controller().selectedImage;
+  bool isLoading = false;
+  String searchResult = '';
+  int similarity = 100;
+  //사진 검색 중엔 isLoading true, 검색 다 되면 isLoading false로 바꿔주어 화면 보이게 하기.
+
+  void printSearchResult() {
+    searchResult = "사진의 유사도는 " + similarity.toString() + "% 입니다.";
+    print(searchResult);
+  }
 
   Widget build(BuildContext context) {
     print("검색결과창");
-    print("selectedImage in search: " + selectedImage.path);
+    printSearchResult();
     return Scaffold(
         appBar: AppBar(
             title: Text('YHHY'),
@@ -34,29 +43,35 @@ class _SearchResultPageState extends StateMVC<SearchResultPage> {
                 icon: const Icon(Icons.home))
             //홈버튼 클릭 시 이전꺼 다 사라지게 (뒤로가기 했을때 이전검색 안나오게)
             ),
-        body: Padding(
-            padding: EdgeInsets.fromLTRB(30.0, 50.0, 30.0, 0.0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 300.0,
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text('검색결과창이 뜹니다 ...'),
-                              ),
-                              Image.file(File(selectedImage.path))
-                            ])),
-                  ),
-                  Divider(
-                    height: 60.0,
-                    color: Colors.grey,
-                    thickness: 1.0,
-                  ),
-                ])));
+        body: isLoading
+            ? Center(child: CircularProgressIndicator())
+            : Padding(
+                padding: EdgeInsets.fromLTRB(30.0, 50.0, 30.0, 0.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 300.0,
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.file(File(selectedImage.path)),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    searchResult,
+                                    style: TextStyle(fontSize: 20.0),
+                                  ),
+                                ])),
+                      ),
+                      Divider(
+                        height: 60.0,
+                        color: Colors.grey,
+                        thickness: 1.0,
+                      ),
+                    ])));
   }
 }
