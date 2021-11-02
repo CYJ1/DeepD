@@ -9,14 +9,6 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class Model extends ModelMVC {
-  // PickedFile? myimage;
-  // var image;
-  // Future modelGetImageFromGallery() async {
-  //   print("Model: GetImageFromGallery");
-  //   image = await ImagePicker.platform.pickImage(source: ImageSource.gallery);
-  //   myimage = image;
-  // }
-
   static void modelSendImageToServer() {
     print("send image");
   }
