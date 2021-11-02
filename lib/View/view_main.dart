@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
+import 'package:deep_d/main.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:deep_d/Controller/controller.dart';
@@ -26,6 +27,7 @@ class ViewState extends StateMVC<View> {
   ViewState() : super(Controller());
 
   get selectedImage => null;
+  bool isweb = kisWeb;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class ViewState extends StateMVC<View> {
             TextButton.icon(
               onPressed: () {
                 print("사진 가져오기 클릭");
-                getImage();
+                kisWeb ? print("웹에서 작동 어떻게 할까요") : getImage();
               },
               icon: Icon(Icons.camera_alt),
               label: Text('사진 가져오기'),
