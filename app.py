@@ -21,7 +21,7 @@ def send_result():
     result = 'true' #lib>View>view_result.dart>printResult로 반환
     return result
 def send_similarity():
-    similarity = '75%' #lib>View>view_search.dart>printSearchResult로 반환
+    similarity = 75 #lib>View>view_search.dart>printSearchResult로 반환
     return similarity
 
 if __name__=='__main__':
