@@ -12,7 +12,7 @@ Future<String> fetchString(DataKind kind) async {
 
     print(kind.toString());
     print(kind.toString().split('.')[1]);
-    final details = ['', 'upload', 'module', 'downloadresult' , 'downloadsimilarity'];
+    final details = ['upload', 'module', 'downloadresult' , 'downloadsimilarity'];
     final urlPath = 'http://172.30.1.25/' + details[kind.index]; //host ip
     
     final response = await http.get(urlPath);
