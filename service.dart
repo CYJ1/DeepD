@@ -1,24 +1,22 @@
-import 'dart:convert'; 
-import 'dart:typed_data'; 
-import 'package:dio/dio.dart'; 
-import 'package:flutter/foundation.dart'; 
+import 'dart:async';
+import 'dart:convert';
 
-class Service { 
-	Dio dio = Dio(); 
-	Future<Uint8List> # (Uint8List imageData) async { 
-	   try { 
-	      var encodedData = await compute(base64Encode, imageData); 
-                    Response response = await dio.post('http://localhost:8080/root', 
-                       data: { 
-                          'image': encodedData 
-	         } 
-	      ); 
-	      String result = response.data; 
-                    return compute(base64Decode, result); 
-                 } catch (e) { 
-                    return null; 
-                 } 
-             } 
-          }
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
+enum DataKind { NONE, STRING, IMAGE, ARRAY }
 
+Future<String> fetchString(DataKind kind) async {
+    if(kind == DataKind.NONE)
+        return '';
+
+    print(kind.toString());
+    print(kind.toString().split('.')[1]);
+    final details = ['', 'upload', 'module', 'download'];
+    final urlPath = 'http://172.30.1.25/' + details[kind.index]; //host ip
+    
+    final response = await http.get(urlPath);
+    
+    if (response.statusCode == 200)
+        return response.body;
+}
