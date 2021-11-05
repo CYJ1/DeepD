@@ -16,10 +16,12 @@ def module():
     #모델 불러와서 돌림
     return 
 
-@app.route('/download')
+@app.route('/downloadresult')
 def send_result():
     result = 'true' #lib>View>view_result.dart>printResult로 반환
     return result
+
+@app.route('/downloadsimilarity')
 def send_similarity():
     similarity = 75 #lib>View>view_search.dart>printSearchResult로 반환
     return similarity
