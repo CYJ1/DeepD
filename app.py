@@ -9,7 +9,12 @@ def index():
 @app.route('/upload', methods=['GET', 'POST'])
 def receive_image():
     if request.method == 'POST':
-        data = request.get_json() #data = lib>View>view_main>_getImage>image 값
+        base64Image = request.json[0]['image']
+        imageStr = base64.b64decode(base64Image)
+        nparr = np.fromstring(imageStr, np.uint8)
+        data = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        #data = lib>View>view_main>_getImage>image 값
+        #cv2.IMREAD_COLOR in OpenCV 3.1
     else:
         data = 'not post'
     return data
