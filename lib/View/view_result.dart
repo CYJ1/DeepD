@@ -8,6 +8,43 @@ import 'package:flutter/material.dart';
 import 'package:deep_d/View/view_search.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
+//server_start
+import 'package:http/http.dart' as http;
+
+Future<String> getResult() async {
+  http.Response res = await http.get('http://192.168.43.236/downloadresult'); //host ip
+  return res.body
+}
+
+class Post {
+  final int userId;
+  final int id;
+  final String title;
+  final String body;
+
+  Post({this.userId, this.id, this.title, this.body});
+
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(
+      userId: json['userId'],
+      id: json['id'],
+      title: json['title'],
+      body: json['body'],
+    );
+  }
+}
+Future<Post> fetchPost() async {
+  final response =
+  await http.get('http://192.168.43.236/downloadresult'); //host ip
+
+  if (response.statusCode == 200) {
+    return Post.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to load post');
+  }
+}
+//server_end
+
 class ResultPage extends StatefulWidget {
   const ResultPage({Key? key}) : super(key: key);
 
@@ -19,13 +56,20 @@ class _ResultPageState extends StateMVC<ResultPage> {
   @override
   var selectedImage = Controller().selectedImage;
   bool isLoading = false;
-  bool result = false;
+  String result = "false";
   String resultString = "";
   //사진 판별 중엔 isLoading true, 검색 다 되면 isLoading false로 바꿔주어 화면 보이게 하기.
   //만약 판별에 10초 이상 걸릴 경우 Alert -> Snackbar로 구현할 수 있을듯?
 
   void printResult() {
-    if (result) {
+    
+    //server_start
+    Future<String> re;
+    re = getResult();
+    result = re
+    //server_end
+      
+    if (result == "true") {
       resultString = "진짜 사진입니다.";
     } else {
       resultString = "가짜 사진입니다.";
