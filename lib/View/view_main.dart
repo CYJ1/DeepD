@@ -9,9 +9,34 @@ import 'package:image_picker/image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:io' as io;
 
+//server_start
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+//server_end
+
 PickedFile? _image;
 String? imagepath;
 var image;
+
+//server_start
+postRequest() async {
+  File imageFile = File(imagePath);
+  List<int> imageBytes = imageFile.readAsBytesSync();
+  String base64Image = base64Encode(imageBytes);
+  print(base64Image);
+  Uri url = Uri.parse('192.168.43.236/upload'); //host ip
+  http.Response response = await http.post(
+    url,
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode([
+      {'image': '$base64Image'}
+    ]),
+  );
+  print(response.body);
+}
+//server_end
 
 class View extends StatefulWidget {
   const View({Key? key}) : super(key: key);
@@ -73,7 +98,8 @@ class ViewState extends StateMVC<View> {
               TextButton(
                 child: Text("네"),
                 onPressed: () {
-                  Controller.sendImageToServer();
+                  postRequest()
+                  //Controller.sendImageToServer();
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => ResultPage()));
                 },
