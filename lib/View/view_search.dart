@@ -56,7 +56,7 @@ class _SearchResultPageState extends StateMVC<SearchResultPage> {
   var selectedImage = Controller().selectedImage;
   bool isLoading = false;
   String searchResult = '';
-  int similarity = 100;
+  String similarity = "100";
   //사진 검색 중엔 isLoading true, 검색 다 되면 isLoading false로 바꿔주어 화면 보이게 하기.
   //사진 검색 후 유사도 받아오기.
 
@@ -68,7 +68,7 @@ class _SearchResultPageState extends StateMVC<SearchResultPage> {
     similarity = sim
     //server_end
       
-    searchResult = "사진의 유사도는 " + similarity.toString() + "% 입니다.";
+    searchResult = "사진의 유사도는 " + similarity + "% 입니다.";
     print(searchResult);
   }
 
