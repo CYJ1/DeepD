@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 	    
@@ -6,9 +6,12 @@ app = Flask(__name__)
 def index():
     return "index"
 
-@app.route('/upload')
+@app.route('/upload', methods=['GET', 'POST'])
 def receive_image():
-    data = request.get_json() #data = lib>View>view_main>_getImage>image 값
+    if request.method == 'POST':
+        data = request.get_json() #data = lib>View>view_main>_getImage>image 값
+    else:
+        data = 'not post'
     return data
 
 @app.route('/module')
@@ -18,14 +21,13 @@ def module():
 
 @app.route('/downloadresult')
 def send_result():
-    result = 'true' #lib>View>view_result.dart>printResult로 반환
-    return result
+    r = 'true' #lib>View>view_result.dart>printResult로 반환
+    return r
 
 @app.route('/downloadsimilarity')
 def send_similarity():
-    similarity = 75 #lib>View>view_search.dart>printSearchResult로 반환
-    return similarity
+    s = '75' #lib>View>view_search.dart>printSearchResult로 반환
+    return s
 
 if __name__=='__main__':
-    app.run(host='172.30.1.25', port=8080) #host='본인 ip'
-
+    app.run(host='192.168.43.236', port=5000) #host='본인 ip'
