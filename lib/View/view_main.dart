@@ -20,11 +20,11 @@ var image;
 
 //server_start
 postRequest() async {
-  File imageFile = File(imagePath);
+  var imageFile = File(imagepath);
   List<int> imageBytes = imageFile.readAsBytesSync();
   String base64Image = base64Encode(imageBytes);
   print(base64Image);
-  Uri url = Uri.parse('192.168.43.236/upload'); //host ip
+  Uri url = Uri.parse('192.168.219.104/upload'); //host ip
   http.Response response = await http.post(
     url,
     headers: <String, String>{
@@ -34,7 +34,7 @@ postRequest() async {
       {'image': '$base64Image'}
     ]),
   );
-  print(response.body);
+  return response.body;
 }
 //server_end
 
@@ -98,7 +98,7 @@ class ViewState extends StateMVC<View> {
               TextButton(
                 child: Text("네"),
                 onPressed: () {
-                  postRequest()
+                  postRequest();
                   //Controller.sendImageToServer();
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => ResultPage()));
