@@ -20,7 +20,8 @@ var image;
 
 //server_start
 postRequest() async {
-  var imageFile = File(imagepath);
+  var imageFile = io.File(imagepath);
+  //File imageFile = File(imagepath);
   List<int> imageBytes = imageFile.readAsBytesSync();
   String base64Image = base64Encode(imageBytes);
   print(base64Image);
