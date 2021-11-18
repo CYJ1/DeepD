@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
+import 'dart:async';
 import 'package:deep_d/main.dart';
 import 'package:deep_d/Controller/controller.dart';
 import 'package:deep_d/View/view_main.dart';
@@ -135,7 +136,7 @@ class _ResultPageState extends StateMVC<ResultPage> {
                         thickness: 1.0,
                       ),
                       TextButton(
-                        onPressed: !result
+                        onPressed: result != "True"
                             ? () {
                                 print("사진 검색 클릭");
                                 Controller.searchSendImageToServer();
