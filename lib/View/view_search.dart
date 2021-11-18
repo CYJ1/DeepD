@@ -11,11 +11,11 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:http/http.dart' as http;
 
 Future<String> getSimilarity() async {
-  http.Response res = await http.get('http://192.168.43.236/downloadsimilarity'); //host ip
-  return res.body
+  http.Response res = await http.get('http://192.168.219.104/downloadsimilarity'); //host ip
+  return res.body;
 }
 
-class Post {
+/*class Post {
   final int userId;
   final int id;
   final String title;
@@ -31,17 +31,17 @@ class Post {
       body: json['body'],
     );
   }
-}
-Future<Post> fetchPost() async {
+}*/
+/*Future<Post> fetchPost() async {
   final response =
-  await http.get('http://192.168.43.236/downloadsimilarity');  //host ip
+  await http.get('http://192.168.219.104/downloadsimilarity');  //host ip
 
   if (response.statusCode == 200) {
     return Post.fromJson(json.decode(response.body));
   } else {
     throw Exception('Failed to load post');
   }
-}
+}*/
 //server_end
 
 class SearchResultPage extends StatefulWidget {
@@ -65,7 +65,7 @@ class _SearchResultPageState extends StateMVC<SearchResultPage> {
     //server_start
     Future<String> sim;
     sim = getSimilarity();
-    similarity = sim
+    similarity = sim;
     //server_end
       
     searchResult = "사진의 유사도는 " + similarity + "% 입니다.";
