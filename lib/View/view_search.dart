@@ -63,9 +63,9 @@ class _SearchResultPageState extends StateMVC<SearchResultPage> {
   void printSearchResult() {
     
     //server_start
-    Future<String> sim;
-    sim = getSimilarity();
-    similarity = sim;
+    //Future<String> sim;
+    similarity = getSimilarity();
+    //similarity = sim;
     //server_end
       
     searchResult = "사진의 유사도는 " + similarity + "% 입니다.";
