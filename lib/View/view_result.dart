@@ -65,9 +65,9 @@ class _ResultPageState extends StateMVC<ResultPage> {
   void printResult() {
     
     //server_start
-    Future<String> re;
-    re = getResult();
-    result = re;
+    //Future<String> re;
+    result = getResult();
+    //result = re;
     //server_end
       
     if (result == "true") {
